@@ -1,8 +1,8 @@
 class Node(object):
 
-    def __init__(self, client = None, next = None):
+    def __init__(self, client = None, nextClient = None):
         self.client = client
-        self.next = next
+        self.nextClient = nextClient
 
     def __str__(self):
         return str(self.client)
@@ -12,19 +12,24 @@ class LinkedList(object):
 
     def __init__(self):
         self.init = Node()
-        print("LinkedList Ready")
+        print("Queue Ready")
 
     def pop(self):
-        first = self.init.next
-        self.init.next = first.next
-        return first
+        first = self.init.nextClient
+        self.init.nextClient = first.nextClient
+        return first.client
 
     def push(self, node):
         nodeIterator = self.init
-        while(nodeIterator.next != None): nodeIterator = nodeIterator.next
-        nodeIterator.next = node
+        while(nodeIterator.nextClient != None): nodeIterator = nodeIterator.nextClient
+        nodeIterator.nextClient = node
 
     def showList(self):
         nodeIterator = self.init
         i = 0
-        while(nodeIterator.next != None): print "Node no%d: %d" % (++i, nodeIterator = nodeIterator.next)
+        while(nodeIterator.nextClient != None):
+            nodeIterator = nodeIterator.nextClient
+            print ("Node no", ++i, nodeIterator)
+
+    def isEmpty(self):
+        return self.init.nextClient == None

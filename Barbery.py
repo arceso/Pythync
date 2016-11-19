@@ -1,21 +1,21 @@
-import Barber
-import Client
-import SeatQueue
-
-print("Barbery is OPEN!")
-
-clients = LinkedList()
-barber = Barber()
-
-TOTALCLIENTS = 3
+from Client import *
+from Barber import *
+from SeatQueue import *
 
 
-for index in range(0, TOTALCLIENTS): clients.push(Client(index))
+def genClientArray(size):
+    clients = LinkedList()
+    for index in range(0, size): clients.push( Node( Client( index)))
+    return clients
 
-for index in range(0, TOTALCLIENTS): barber.attend(Client(index))
+def doTheWorkday():
+    print("Barbery is OPEN!")
 
-for index in range(0, TOTALCLIENTS): clients.pop()
+    barber = Barber()
 
-raw_input('Enter your input:')
+    clients = genClientArray(TOTALCLIENTS)
+    while(not clients.isEmpty()): barber.attend( clients.pop())
 
-print("Barbery is CLOSED!")
+    print("Barbery is CLOSED!")
+
+doTheWorkday()
