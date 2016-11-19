@@ -8,7 +8,7 @@ class Node(object):
         return str(self.client)
 
 
-class ClientList(object):
+class LinkedList(object):
 
     def __init__(self):
         self.init = Node()

@@ -5,5 +5,5 @@ class Barber(object):
     def attend(self, client):
         client.atended()
 
-    def  goToSeleep(self):
-        
+    def  goToSeleep():
+        print "I'm sleeping!"
