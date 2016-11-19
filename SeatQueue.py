@@ -12,6 +12,7 @@ class LinkedList(object):
 
     def __init__(self):
         self.init = Node()
+        print("LinkedList Ready")
 
     def pop(self):
         first = self.init.next
@@ -20,10 +21,10 @@ class LinkedList(object):
 
     def push(self, node):
         nodeIterator = self.init
-        while(nodeIterator.next != None) nodeIterator = nodeIterator.next
+        while(nodeIterator.next != None): nodeIterator = nodeIterator.next
         nodeIterator.next = node
 
     def showList(self):
         nodeIterator = self.init
         i = 0
-        while(nodeIterator.next != None) print "Node no%d: %d" % (++i, nodeIterator = nodeIterator.next)
+        while(nodeIterator.next != None): print "Node no%d: %d" % (++i, nodeIterator = nodeIterator.next)
