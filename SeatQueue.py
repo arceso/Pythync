@@ -10,9 +10,11 @@ class Node(object):
 
 class LinkedList(object):
 
-    def __init__(self):
+    def __init__(self, MAX):
         self.init = Node()
+        self.MAX = MAX
         print("Queue Ready")
+
 
     def pop(self):
         first = self.init.nextClient
@@ -33,3 +35,11 @@ class LinkedList(object):
 
     def isEmpty(self):
         return self.init.nextClient == None
+
+    def isFull(self):
+        nodeIterator = self.init
+        while(nodeIterator.nextClient != None):
+            nodeIterator = nodeIterator.nextClient
+            cont += 1
+            if (cont == MAX) return True
+        return False
