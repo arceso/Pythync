@@ -2,6 +2,8 @@ from Client import *
 from Barber import *
 from SeatQueue import *
 
+import time
+
 MAXCLIENTSOUTSIDE = 10
 MAXCLIENTSINSIDE = 3
 
@@ -18,11 +20,22 @@ def clientQueue(size):
 def doTheWorkday():
     print("Barbery is OPEN!")
 
-    barber = Barber()
+    sleepingChair = threading.Event()
+    barber = Barber(sleepingChair)
     clientsOutside = genClientArray(MAXCLIENTSOUTSIDE)
     clientsInside = LinkedList(MAXCLIENTSINSIDE)
 
     for clientOutside in clientsOutside: clientOutside.tryToJoin(clientsInside)
+
+    while (clientsLeft()):
+        time.sleep(1)
+
+        if(clientsInside.isEmpty): barber.goToSeleep()
+        else:
+         barber.wakeUp()
+         barber.attend(clientsInside.pop())
+
+
 
 #    while(not clientsInside.isEmpty()): barber.attend( clientsInside.pop())
 
@@ -31,4 +44,7 @@ def doTheWorkday():
 def checkForSeat(client):
     if (not clientsInside.isFull()): clientsInside.push(client)
 
+def wakeUpBarber(sleepingChair):
+    sleepingChair.set()
+    
 #doTheWorkday()
