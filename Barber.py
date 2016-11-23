@@ -1,35 +1,31 @@
 import threading
+import time
+from Client import *
 
-class Barber(threading.Thread):
+class Barber:
 
-    lock = threading.Lock()
-
-
-    def __init__(self, sleepingChair):
+    def __init__(self):
         print("Barber Ready!")
-        threading.Thread.__init__(self)
-        self.sleepingChair = sleepingChair
+        self.lock = threading.Lock()
+        sleepingChair = threading.Condition()
+        threading.Thread(name="sleeper", target=self.goToSeleep, args=(sleepingChair,)).start()
+        threading.Thread(name="wakeup", target=self.wakeUp, args=(sleepingChair,)).start()
 
     def attend(self, client):
-        with lock:
+        with self.lock:
             print("Client",client.getId() ,"being attended!")
             client.atended()
 
-    def  goToSeleep(self):
+    def  goToSeleep(self, cv):
         print("I'm sleeping!")
-        while(self.sleepingChair.wait()): print("awake!")
+        with cv:
+            cv.wait()
+            print("ASD")
 
-    def  wakeUp(self):
+    def  wakeUp(self, cv):
         print("I'm awake!")
-        self.sleepingChair.set()
+        with cv:
+            cv.notifyAll()
 
-
-sleepingChair = threading.Event()
-b = Barber(sleepingChair)
-b.daemon = True
-b.start()
-print(1)
-b.goToSeleep()
-print(2)
-sleepingChair.set()
-print(3)
+#Ej:
+#Barber().attend(Client(7))
