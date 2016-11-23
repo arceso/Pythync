@@ -38,7 +38,7 @@ def iniciar():
     global barberia, barbero, numeroSillas
     while(True):
         #Mandamos a dormir el bucle para que la creación de clientes tenga algo de tiempo
-        sleep(random.uniform(.5, 6))
+        sleep(random.uniform(.5, 4))
 
         if barberia.getCuantosClientes() < numeroSillas:
             cliente = Cliente(barberia, barbero)

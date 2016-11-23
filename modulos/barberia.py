@@ -6,7 +6,7 @@ class Barberia(threading.Thread):
 
     def __init__(self, num):
         threading.Thread.__init__(self)
-        self.__cerradura = threading.Lock()
+        self.__cerradura = threading.Condition()
         self.__numSillas = num
         self.__sillaMaestra = False
         self.__clientesEnEspera = 0
@@ -20,7 +20,7 @@ class Barberia(threading.Thread):
             self.__sillaMaestra = True
             self.__clientesEnEspera -= 1
             print("Barbero cortando el pelo...")
-            sleep(3)
+            sleep(random.uniform(1, 5))
             print("Pelo cortado")
             self.__sillaMaestra = False
 
@@ -35,3 +35,6 @@ class Barberia(threading.Thread):
 
     def agregarCliente(self):
         self.__clientesEnEspera += 1
+
+    def getHilo(self):
+        return self.__cerradura

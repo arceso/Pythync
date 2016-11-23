@@ -2,9 +2,9 @@ import threading
 
 class Cliente(threading.Thread):
 
-    def __init__(self, monitor, barbero):
+    def __init__(self, barberia, barbero):
         threading.Thread.__init__(self)
-        self.__barberia = monitor
+        self.__barberia = barberia
         self.__barbero = barbero
         self.__barberia.agregarCliente()
         print("Hay ", self.__barberia.getCuantosClientes(), " clientes en espera")
@@ -19,12 +19,5 @@ class Cliente(threading.Thread):
 
     def despertar(self):
         print("Despertando al barbero")
-        '''
-        try:
-            self.__barbero.getHilo().acquire()
-            self.__barbero.getHilo().notify_all()
-        finally:
-            sself.__barbero.getHilo().release()
-        '''
-        with self.__barbero.getHilo():
+        with self.__barberia.getHilo():
             self.__barbero.getHilo().notify()

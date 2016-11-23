@@ -1,11 +1,11 @@
 import threading
 
 class Barbero(threading.Thread):
-    def __init__(self, monitor):
+    def __init__(self, barberia):
         threading.Thread.__init__(self)
-        self.__cerradura = threading.Condition()
         self.__duerme = False
-        self.__barberia = monitor
+        self.__barberia = barberia
+        self.__cerradura = barberia.getHilo()
 
     def run(self):
         while(True):
@@ -16,15 +16,6 @@ class Barbero(threading.Thread):
         print("Barbero se puso a dormir")
         self.__duerme = True
         self.__barberia.setSillaOcupada(True)
-        '''
-        try:
-            self.__cerradura.acquire()
-            print("Cerradura cerrada")
-            self.__cerradura.wait()
-        finally:
-            print("Cerradura abierta")
-            self.__cerradura.release()
-        '''
         with self.__cerradura:
             self.__cerradura.wait()
         self.__duerme = False
