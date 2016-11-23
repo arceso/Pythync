@@ -13,7 +13,7 @@ def main():
     global barberia, barbero, numeroSillas
 
     #Numero de sillas disponibles para esperar, si sobrepasa no se aceptan más clientes
-    numeroSillas = random.randrange(1, 2)
+    numeroSillas = random.randrange(1, 5)
 
     #Instanciamos las clases barberia y barbero
     #Barberia recibe el numero de asientos disponibles
@@ -36,19 +36,16 @@ def main():
 #Esta función sirve para crear una cantidad de clientes (según el while)
 def iniciar():
     global barberia, barbero, numeroSillas
-    contador = 0
-    while(contador < 10):
+    while(True):
         #Mandamos a dormir el bucle para que la creación de clientes tenga algo de tiempo
         sleep(random.uniform(.5, 1))
 
-        if barberia.getCuantosClientes() < numeroSillas:
-            cliente = Cliente(barberia, barbero)
-            cliente.setName("Cliente " + str(contador))
-            cliente.start()
-        else:
-            print("Un cliente se fue por no tener sitio.")
+        cliente = Cliente(barberia, barbero)
+        cliente.setName("Cliente " + cliente.getName())
+        cliente.start()
 
-        contador += 1
+        if not barberia.getCuantosClientes() < numeroSillas:
+            print("Un cliente se fue por no tener sitio.")
 
 if __name__ == "__main__":
     main()
