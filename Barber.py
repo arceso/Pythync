@@ -20,8 +20,7 @@ class Barber:
         print("I'm sleeping!")
         with cv:
             cv.wait()
-            print("ASD")
-
+            
     def  wakeUp(self, cv):
         print("I'm awake!")
         with cv:

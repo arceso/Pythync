@@ -33,14 +33,15 @@ def haveClientsLeft():
 if __name__ == "__main__":
     print("Barbery is OPEN!")
 
-    while()
     clientsOutside = genClientArray(MAXCLIENTSOUTSIDE)
-    clientsInside = LinkedList(MAXCLIENTSINSIDE)
+    while(not clientsOutside.isEmpty)
+        time.
+        clientsInside = LinkedList(MAXCLIENTSINSIDE)
 
-    for clientOutside in clientsOutside: clientOutside.tryToJoin(clientsInside)
+        for clientOutside in clientsOutside: clientOutside.tryToJoin(clientsInside)
 
-    while (haveClientsLeft()):
-        
+        while (haveClientsLeft()):
+
 
 
 
