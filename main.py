@@ -36,16 +36,18 @@ def main():
 #Esta función sirve para crear una cantidad de clientes (según el while)
 def iniciar():
     global barberia, barbero, numeroSillas
+    contador = 0
     while(True):
         #Mandamos a dormir el bucle para que la creación de clientes tenga algo de tiempo
         sleep(random.uniform(.5, 1))
 
         cliente = Cliente(barberia, barbero)
-        cliente.setName("Cliente " + cliente.getName())
+        cliente.setName("cliente " + cliente.getName())
         cliente.start()
 
         if not barberia.getCuantosClientes() < numeroSillas:
-            print("Un cliente se fue por no tener sitio.")
+            print("Cliente " + cliente.getName() + " se fue por no tener sitio.")
+            cliente._delete()
 
 if __name__ == "__main__":
     main()
