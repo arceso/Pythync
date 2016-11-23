@@ -21,7 +21,7 @@ class Barberia(threading.Thread):
             self.__clientesEnEspera -= 1
             print("Barbero cortando el pelo...")
             sleep(random.uniform(1, 5))
-            print("Pelo cortado")
+            print("Pelo cortado a ", self.__cortandoAlHilo)
             self.__sillaMaestra = False
 
     def setSillaOcupada(self, ocupada):
@@ -38,3 +38,6 @@ class Barberia(threading.Thread):
 
     def getHilo(self):
         return self.__cerradura
+
+    def setNombreHiloActual(self, nombre):
+        self.__cortandoAlHilo = nombre

@@ -9,13 +9,14 @@ class Barbero(threading.Thread):
 
     def run(self):
         while(True):
-            if not self.__barberia.getSillaOcupada() and self.__barberia.getCuantosClientes() == 0 and not self.__duerme:
-                self.dormir()
+            with self.__cerradura:
+                if not self.__barberia.getSillaOcupada() and self.__barberia.getCuantosClientes() == 0 and not self.__duerme:
+                    self.dormir()
 
     def dormir(self):
-        print("Barbero se puso a dormir")
         self.__duerme = True
         self.__barberia.setSillaOcupada(True)
+        print("Barbero se puso a dormir")
         with self.__cerradura:
             self.__cerradura.wait()
         self.__duerme = False
@@ -23,6 +24,3 @@ class Barbero(threading.Thread):
 
     def getEstado(self):
         return self.__duerme
-
-    def getHilo(self):
-        return self.__cerradura
