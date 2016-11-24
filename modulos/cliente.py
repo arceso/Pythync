@@ -10,7 +10,6 @@ class Cliente(threading.Thread):
         threading.Thread.__init__(self)
         self.__barberia = barberia
         self.__barbero = barbero
-        self.__barberia.agregarCliente()
         self.__cerradura = self.__barberia.getHilo()
         self.__listaNombres = self.__barberia.getListaNombres()
         print("Hay ", self.__barberia.getCuantosClientes(), " clientes en espera")
@@ -18,14 +17,16 @@ class Cliente(threading.Thread):
     #En esta función se ve si el barbero está dormido y después se entra en un
     #bucle para intentar entrar en la silla principal para que le corten el pelo
     def run(self):
+        self.__barberia.agregarCliente()
         if self.__barbero.getEstado():
             self.despertar()
         while(True):
-            if not self.__barberia.getSillaOcupada():
-                self.__listaNombres.append(self.getName())
-                self.__barberia.setListaNombres(self.__listaNombres)
-                self.__barberia.cortarPelo()
-                break
+            with self.__cerradura:
+                if not self.__barberia.getSillaOcupada():
+                    self.__listaNombres.append(self.getName())
+                    self.__barberia.setListaNombres(self.__listaNombres)
+                    self.__barberia.cortarPelo()
+                    break
 
     #Esta función solo será llamado cuando el barbero esté durmiendo y le despertará
     #con la condición notify

@@ -41,13 +41,13 @@ def iniciar():
     while(True):
         #Mandamos a dormir el bucle para que la creación de clientes tenga algo de tiempo
         sleep(random.uniform(.25, .5))
+        cliente = Cliente(barberia, barbero)
+        cliente.setName("Cliente " + cliente.getName())
 
         #Si hay sitio en la barberia se crea un nuevo proceso que esperará a poder cortarse el pelo
         #sino se perderá ese cliente
         if barberia.getCuantosClientes() < numeroSillas:
             #El cliente estará constantemente viendo si puede o no entrar a la silla principal
-            cliente = Cliente(barberia, barbero)
-            cliente.setName("Cliente " + cliente.getName())
             cliente.start()
         else:
             print("Un cliente se fue por no tener sitio.")

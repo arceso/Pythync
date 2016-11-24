@@ -18,15 +18,14 @@ class Barberia(threading.Thread):
     #Esta función se encarga de hacer un acquire para cortar el pelo al
     #thread cliente que haya entrado antes y después un realese al terminar
     def cortarPelo(self):
-        with self.__cerradura:
-            self.__sillaMaestra = True
-            self.__clientesEnEspera -= 1
-            print("Barbero cortando el pelo...")
-            #Tiempo que tarda el barbero en cortar el pelo al cliente
-            sleep(random.uniform(.25, 1))
-            print("Pelo cortado a " + self.__listaNombres[0])
-            self.__listaNombres.remove(self.__listaNombres[0])
-            self.__sillaMaestra = False
+        self.__sillaMaestra = True
+        self.__clientesEnEspera -= 1
+        print("Barbero cortando el pelo...")
+        #Tiempo que tarda el barbero en cortar el pelo al cliente
+        sleep(random.uniform(.25, 1))
+        print("Pelo cortado a " + self.__listaNombres[0])
+        self.__listaNombres.remove(self.__listaNombres[0])
+        self.__sillaMaestra = False
 
     #Cambia el estado de la silla principal
     def setSillaOcupada(self, ocupada):
