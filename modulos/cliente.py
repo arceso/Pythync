@@ -7,7 +7,8 @@ class Cliente(threading.Thread):
         self.__barberia = barberia
         self.__barbero = barbero
         self.__barberia.agregarCliente()
-        self.__cerradura = barberia.getHilo()
+        self.__cerradura = self.__barberia.getHilo()
+        self.__listaNombres = self.__barberia.getListaNombres()
         print("Hay ", self.__barberia.getCuantosClientes(), " clientes en espera")
 
     def run(self):
@@ -15,7 +16,8 @@ class Cliente(threading.Thread):
             self.despertar()
         while(True):
             if not self.__barberia.getSillaOcupada():
-                self.__barberia.setNombreHiloActual(self.getName())
+                self.__listaNombres.append(self.getName())
+                self.__barberia.setListaNombres(self.__listaNombres)
                 self.__barberia.cortarPelo()
                 break
 

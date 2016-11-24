@@ -14,10 +14,10 @@ class Barbero(threading.Thread):
                     self.dormir()
 
     def dormir(self):
-        self.__duerme = True
-        self.__barberia.setSillaOcupada(True)
-        print("Barbero se puso a dormir")
         with self.__cerradura:
+            self.__duerme = True
+            self.__barberia.setSillaOcupada(True)
+            print("Barbero se puso a dormir")
             self.__cerradura.wait()
         self.__duerme = False
         self.__barberia.setSillaOcupada(False)
