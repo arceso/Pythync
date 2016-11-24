@@ -1,4 +1,5 @@
 import threading
+from colorama import init, Fore, Back, Style
 
 #Barbero es la clase que acepta hilos si está despierto pero solo acepta a 1 a la vez
 
@@ -29,7 +30,8 @@ class Barbero(threading.Thread):
         with self.__cerradura:
             self.__duerme = True
             self.__barberia.setSillaOcupada(True)
-            print("Barbero se puso a dormir")
+            print(Back.MAGENTA + "Barbero se puso a dormir")
+            print(Style.RESET_ALL)
             self.__cerradura.wait()
         self.__duerme = False
         self.__barberia.setSillaOcupada(False)

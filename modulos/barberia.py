@@ -1,7 +1,7 @@
 import threading
 import random
 from time import sleep
-
+from colorama import init, Fore, Back, Style
 #Clase que se encarga de ver quien entra y quien sale de la barberia (monitor)
 
 class Barberia(threading.Thread):
@@ -18,15 +18,16 @@ class Barberia(threading.Thread):
     #Esta función se encarga de hacer un acquire para cortar el pelo al
     #thread cliente que haya entrado antes y después un realese al terminar
     def cortarPelo(self):
-        with self.__cerradura:
-            self.__sillaMaestra = True
-            self.__clientesEnEspera -= 1
-            print("Barbero cortando el pelo...")
-            #Tiempo que tarda el barbero en cortar el pelo al cliente
-            sleep(random.uniform(.25, 1))
-            print("Pelo cortado a " + self.__listaNombres[0])
-            self.__listaNombres.remove(self.__listaNombres[0])
-            self.__sillaMaestra = False
+        self.__sillaMaestra = True
+        self.__clientesEnEspera -= 1
+        print(Fore.CYAN + "Barbero cortando el pelo...")
+        print(Style.RESET_ALL)
+        #Tiempo que tarda el barbero en cortar el pelo al cliente
+        sleep(random.uniform(1, 2))
+        print(Fore.GREEN + "Pelo cortado a " + self.__listaNombres[0])
+        print(Style.RESET_ALL)
+        self.__listaNombres.remove(self.__listaNombres[0])
+        self.__sillaMaestra = False
 
     #Cambia el estado de la silla principal
     def setSillaOcupada(self, ocupada):
